@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: spring-ai
+    runtime: docker
+    dockerfilePath: ./spring-ai/Dockerfile
+    envVars:
+      - key: OPENROUTER_API_KEY
+        # Set via Render dashboard UI (do not commit secrets to the repository).
+      - key: PORT
+      - key: OPENROUTER_BASE_URL
+        value: https://openrouter.ai/api/v1
+      - key: OPENROUTER_CHAT_MODEL
+        value: openrouter/free
+      - key: SPRING_PROFILES_ACTIVE
+        value: render
+    autoDeploy: true
+    region: oregon
