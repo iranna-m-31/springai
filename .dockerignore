@@ -1,0 +1,15 @@
+.git
+.gitignore
+.env
+.env.example
+# Allow build/libs/ but ignore other build artifacts
+
+.gradle/
+.idea/
+.vscode/
+.claude/
+node_modules/
+test-results/
+**/*.md
+!README.md
+!src/main/resources/docs/*.md

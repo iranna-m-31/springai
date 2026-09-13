@@ -1,0 +1,29 @@
+# Docker Compose for Spring AI Tutor Backend
+# Supports both local development and production deployment
+
+version: "3.9"
+
+services:
+  # ── Spring AI Backend ──────────────────────────────
+  spring-ai-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-ai-backend
+    ports:
+      - "${PORT:-8080}:8080"
+    env_file:
+      - .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=local
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/api/tutor/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    # Uncomment for local development with hot-reload
+    # volumes:
+    #   - ./src:/app/src
+    #   - ./build.gradle.kts:/app/build.gradle.kts
